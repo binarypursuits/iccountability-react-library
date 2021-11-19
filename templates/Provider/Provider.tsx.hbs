@@ -1,0 +1,35 @@
+import React, { createContext, useContext, ReactNode, useState } from 'react';
+
+export interface {{name}}State {
+}
+
+export interface I{{name}}Store {
+  state: {{name}}State;
+  updateState: (newState: {{name}}State) => void;
+}
+
+export interface {{name}}ProviderProps {
+  initialState: {{name}}State,
+  children: ReactNode
+}
+
+const {{name}}Context = createContext<I{{name}}Store>({} as I{{name}}Store);
+
+export function {{name}}Provider ({ initialState, children }: {{name}}ProviderProps) {
+  const [state, setState] = useState<{{name}}State>(initialState);
+
+  const store: I{{name}}Store = {
+    state,
+    updateState: (newState) => {
+      setState({...state, ...newState});
+    }
+  }
+
+  return (
+    <{{name}}Context.Provider value={store}>
+      \{{children}}
+    </{{name}}Context.Provider>
+  );
+};
+
+export const use{{name}} = () => useContext({{name}}Context)
